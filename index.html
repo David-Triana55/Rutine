@@ -1,0 +1,641 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>Rutina · Full Body</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Inter:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#111114;
+    --surface:#1b1b20;
+    --surface-raised:#232329;
+    --line:#2d2d34;
+    --text:#f3f1ea;
+    --text-dim:#8d8d97;
+    --amber:#ffb020;
+    --amber-dim:#7a5716;
+    --green:#3ecf8e;
+    --red:#ff5a5f;
+    --radius:14px;
+  }
+  *{box-sizing:border-box; -webkit-tap-highlight-color:transparent;}
+  html,body{margin:0;padding:0;}
+  body{
+    background:var(--bg);
+    color:var(--text);
+    font-family:'Inter',sans-serif;
+    min-height:100vh;
+    padding-bottom:120px;
+  }
+  h1,h2,h3,.display{
+    font-family:'Oswald',sans-serif;
+    text-transform:uppercase;
+    letter-spacing:0.03em;
+    margin:0;
+  }
+  .mono{font-family:'Space Mono',monospace;}
+
+  /* Header */
+  .topbar{
+    padding:22px 18px 14px;
+    border-bottom:1px solid var(--line);
+    position:sticky;
+    top:0;
+    background:rgba(17,17,20,0.94);
+    backdrop-filter:blur(8px);
+    z-index:20;
+  }
+  .topbar-row{display:flex; justify-content:space-between; align-items:flex-start;}
+  .title{font-size:22px; font-weight:600; color:var(--text);}
+  .subtitle{font-size:12px; color:var(--text-dim); margin-top:4px; letter-spacing:0.04em;}
+  .session-clock{
+    text-align:right;
+  }
+  .session-clock .label{font-size:9px; color:var(--text-dim); letter-spacing:0.12em; text-transform:uppercase;}
+  .session-clock .time{font-size:20px; color:var(--amber); font-weight:700;}
+
+  /* Day tabs */
+  .day-tabs{
+    display:flex;
+    gap:8px;
+    margin-top:16px;
+  }
+  .day-tab{
+    flex:1;
+    padding:10px 0;
+    text-align:center;
+    background:var(--surface);
+    border:1px solid var(--line);
+    border-radius:10px;
+    font-family:'Oswald',sans-serif;
+    font-size:14px;
+    letter-spacing:0.06em;
+    color:var(--text-dim);
+    cursor:pointer;
+    transition:all .15s ease;
+  }
+  .day-tab.active{
+    background:var(--amber);
+    border-color:var(--amber);
+    color:#1a1204;
+    font-weight:600;
+  }
+  .day-progress{
+    font-size:10px;
+    margin-top:2px;
+    opacity:0.75;
+  }
+
+  /* Content */
+  .content{padding:16px;}
+
+  .session-btn{
+    width:100%;
+    padding:13px;
+    border-radius:10px;
+    border:none;
+    font-family:'Oswald',sans-serif;
+    font-size:14px;
+    letter-spacing:0.06em;
+    text-transform:uppercase;
+    cursor:pointer;
+    margin-bottom:16px;
+  }
+  .session-btn.start{background:var(--amber); color:#1a1204; font-weight:600;}
+  .session-btn.running{background:var(--surface-raised); color:var(--green); border:1px solid var(--green);}
+
+  .exercise-card{
+    background:var(--surface);
+    border:1px solid var(--line);
+    border-radius:var(--radius);
+    padding:14px 16px 16px;
+    margin-bottom:12px;
+  }
+  .exercise-card.complete{border-color:var(--green); background:linear-gradient(180deg, rgba(62,207,142,0.06), var(--surface) 40%);}
+
+  .ex-head{
+    display:flex;
+    justify-content:space-between;
+    align-items:flex-start;
+    gap:10px;
+  }
+  .ex-num{
+    font-family:'Space Mono',monospace;
+    font-size:11px;
+    color:var(--amber);
+    letter-spacing:0.1em;
+  }
+  .ex-name{
+    font-size:16px;
+    font-weight:600;
+    margin-top:2px;
+    line-height:1.25;
+  }
+  .ex-meta{
+    display:flex;
+    gap:10px;
+    margin-top:6px;
+    font-size:12px;
+    color:var(--text-dim);
+  }
+  .ex-meta span{
+    background:var(--surface-raised);
+    padding:3px 8px;
+    border-radius:6px;
+  }
+
+  .note-toggle{
+    font-size:11px;
+    color:var(--text-dim);
+    text-decoration:underline;
+    text-underline-offset:2px;
+    cursor:pointer;
+    margin-top:8px;
+    display:inline-block;
+  }
+  .note-body{
+    display:none;
+    font-size:12.5px;
+    color:var(--text-dim);
+    margin-top:8px;
+    line-height:1.5;
+    border-left:2px solid var(--amber-dim);
+    padding-left:10px;
+  }
+  .note-body.open{display:block;}
+
+  .sets-row{
+    display:flex;
+    gap:8px;
+    margin-top:12px;
+    flex-wrap:wrap;
+  }
+  .set-dot{
+    width:38px;
+    height:38px;
+    border-radius:50%;
+    border:2px solid var(--line);
+    background:var(--surface-raised);
+    color:var(--text-dim);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-family:'Space Mono',monospace;
+    font-size:13px;
+    cursor:pointer;
+    transition:all .12s ease;
+    flex-shrink:0;
+  }
+  .set-dot.done{
+    background:var(--green);
+    border-color:var(--green);
+    color:#08251a;
+    font-weight:700;
+  }
+  .set-dot:active{transform:scale(0.92);}
+
+  /* Cardio card */
+  .cardio-card{
+    background:var(--surface);
+    border:1px solid var(--line);
+    border-radius:var(--radius);
+    padding:16px;
+    margin-top:6px;
+    margin-bottom:12px;
+  }
+  .cardio-head{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+  }
+  .cardio-title{font-size:14px; font-weight:600; letter-spacing:0.02em;}
+  .cardio-sub{font-size:11px; color:var(--text-dim); margin-top:3px;}
+  .cardio-controls{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    margin-top:12px;
+  }
+  .cardio-time{
+    font-family:'Space Mono',monospace;
+    font-size:26px;
+    color:var(--amber);
+    flex:1;
+    text-align:center;
+  }
+  .round-btn{
+    width:36px;height:36px;
+    border-radius:50%;
+    border:1px solid var(--line);
+    background:var(--surface-raised);
+    color:var(--text);
+    font-size:16px;
+    display:flex;align-items:center;justify-content:center;
+    cursor:pointer;
+  }
+  .cardio-actions{display:flex; gap:8px; margin-top:12px;}
+  .pill-btn{
+    flex:1;
+    padding:9px;
+    border-radius:8px;
+    border:1px solid var(--line);
+    background:var(--surface-raised);
+    color:var(--text);
+    font-family:'Oswald',sans-serif;
+    font-size:12px;
+    letter-spacing:0.05em;
+    text-transform:uppercase;
+    cursor:pointer;
+  }
+  .pill-btn.primary{background:var(--amber); color:#1a1204; border-color:var(--amber); font-weight:600;}
+
+  .section-label{
+    font-size:11px;
+    color:var(--text-dim);
+    letter-spacing:0.1em;
+    text-transform:uppercase;
+    margin:20px 0 8px 2px;
+  }
+
+  .reset-day{
+    text-align:center;
+    font-size:11.5px;
+    color:var(--text-dim);
+    text-decoration:underline;
+    margin-top:6px;
+    cursor:pointer;
+  }
+
+  /* Sticky rest timer */
+  .rest-bar{
+    position:fixed;
+    left:0; right:0; bottom:0;
+    background:var(--surface-raised);
+    border-top:1px solid var(--amber-dim);
+    padding:14px 18px calc(14px + env(safe-area-inset-bottom));
+    display:none;
+    z-index:30;
+    box-shadow:0 -8px 24px rgba(0,0,0,0.4);
+  }
+  .rest-bar.active{display:block;}
+  .rest-top{display:flex; justify-content:space-between; align-items:center;}
+  .rest-label{font-size:11px; color:var(--text-dim); letter-spacing:0.08em; text-transform:uppercase;}
+  .rest-ex{font-size:13px; color:var(--text); margin-top:2px; font-weight:600;}
+  .rest-count{
+    font-family:'Space Mono',monospace;
+    font-size:32px;
+    color:var(--amber);
+    font-weight:700;
+  }
+  .rest-bar-track{
+    height:4px;
+    background:var(--line);
+    border-radius:4px;
+    margin:10px 0 12px;
+    overflow:hidden;
+  }
+  .rest-bar-fill{
+    height:100%;
+    background:var(--amber);
+    width:100%;
+    transition:width 1s linear;
+  }
+  .rest-actions{display:flex; gap:8px;}
+
+  .footer-note{
+    text-align:center;
+    color:var(--text-dim);
+    font-size:11px;
+    padding:22px 20px 4px;
+    line-height:1.6;
+  }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="topbar-row">
+    <div>
+      <div class="title">Rutina Full Body</div>
+      <div class="subtitle">3 días · Recomposición corporal</div>
+    </div>
+    <div class="session-clock">
+      <div class="label">Sesión</div>
+      <div class="time mono" id="sessionClock">00:00</div>
+    </div>
+  </div>
+  <div class="day-tabs" id="dayTabs"></div>
+</div>
+
+<div class="content">
+  <button class="session-btn start" id="sessionBtn">Empezar entrenamiento</button>
+  <div id="exerciseList"></div>
+
+  <div class="section-label">Cardio</div>
+  <div class="cardio-card" id="cardioCard"></div>
+
+  <div class="reset-day" id="resetDay">Reiniciar día</div>
+  <div class="footer-note">Toca un círculo al completar la serie — el descanso arranca solo.</div>
+</div>
+
+<div class="rest-bar" id="restBar">
+  <div class="rest-top">
+    <div>
+      <div class="rest-label">Descanso</div>
+      <div class="rest-ex" id="restExName">—</div>
+    </div>
+    <div class="rest-count mono" id="restCount">00:00</div>
+  </div>
+  <div class="rest-bar-track"><div class="rest-bar-fill" id="restFill"></div></div>
+  <div class="rest-actions">
+    <button class="pill-btn" id="restMinus">−15s</button>
+    <button class="pill-btn" id="restPause">Pausar</button>
+    <button class="pill-btn" id="restPlus">+15s</button>
+    <button class="pill-btn primary" id="restSkip">Listo</button>
+  </div>
+</div>
+
+<script>
+const DATA = {
+  A: {
+    exercises: [
+      {name:"Prensa de piernas (horizontal o inclinada)", sets:4, reps:"8-10", rest:110, note:"Pies a la anchura de hombros en la plataforma, baja hasta 90° de rodilla, no bloquees las rodillas con fuerza arriba."},
+      {name:"Extensión de cuádriceps en máquina", sets:3, reps:"12-15", rest:60, note:"Movimiento controlado, aprieta el cuádriceps arriba 1 seg, baja despacio sin soltar el peso."},
+      {name:"Elevación de talones en máquina (gemelos)", sets:3, reps:"15-20", rest:45, note:"Sube hasta la punta del pie apretando la pantorrilla arriba, baja controlado hasta sentir el estiramiento."},
+      {name:"Press de pecho unilateral en máquina", sets:4, reps:"8-10 por brazo", rest:90, note:"Pecho medio. Un brazo a la vez. Empieza siempre por el lado izquierdo con el mismo peso que el derecho."},
+      {name:"Remo unilateral en máquina (agarre neutro)", sets:4, reps:"8-10 por brazo", rest:90, note:"Agarre neutro (palmas enfrentadas, como girar una perilla). Jala con la espalda. Empieza por el lado izquierdo."},
+      {name:"Press de hombro unilateral en máquina", sets:3, reps:"10-12 por brazo", rest:75, note:"Un brazo a la vez, core firme. Empieza por el lado izquierdo con el mismo peso que el derecho."},
+      {name:"Curl de bíceps predicador (banco Scott)", sets:2, reps:"12-15", rest:50, note:"Agarre supinado (palmas arriba). El banco fija el codo y quita el impulso del hombro, aislando más el bíceps."},
+      {name:"Plancha", sets:3, reps:"30-45 seg", rest:45, note:"Cuerpo en línea recta, glúteos y abdomen activos, no dejes caer la cadera."}
+    ],
+    cardio:{label:"Opcional este día", mins:22}
+  },
+  B: {
+    exercises: [
+      {name:"Curl femoral en máquina (sentado o acostado)", sets:4, reps:"10-12", rest:90, note:"Isquiotibiales y glúteos, sin exigir técnica de bisagra de cadera. Aprieta abajo, controla la vuelta."},
+      {name:"Press inclinado unilateral en máquina", sets:4, reps:"8-10 por brazo", rest:90, note:"Pecho alto. Un brazo a la vez. Empieza por el lado izquierdo con el mismo peso que el derecho."},
+      {name:"Cruce de poleas de abajo hacia arriba (o press declinado)", sets:3, reps:"12-15", rest:60, note:"Pecho bajo. Poleas bajas, cruza las manos al frente y arriba del pecho, aprieta al final del recorrido."},
+      {name:"Jalón al pecho unilateral en polea", sets:4, reps:"8-10 por brazo", rest:90, note:"Anchura de espalda. Un brazo a la vez, jala hacia abajo y atrás. Empieza por el lado izquierdo."},
+      {name:"Prensa unilateral en máquina (una pierna)", sets:3, reps:"10-12 por pierna", rest:75, note:"Una pierna a la vez. Empuja con el talón, no bloquees la rodilla con fuerza arriba. Empieza por la izquierda."},
+      {name:"Elevación lateral en polea o máquina", sets:3, reps:"12-15", rest:50, note:"Sube hasta la altura del hombro sin impulso, controla la bajada."},
+      {name:"Extensión de tríceps en polea", sets:2, reps:"12-15", rest:50, note:"Codos fijos pegados al torso, extiende completo sin trabar la articulación con fuerza."}
+    ],
+    cardio:{label:"Recomendado este día", mins:22}
+  },
+  C: {
+    exercises: [
+      {name:"Prensa unilateral en máquina (una pierna)", sets:3, reps:"10-12 por pierna", rest:75, note:"Una pierna a la vez. Empuja con el talón, no bloquees la rodilla con fuerza arriba. Empieza por la izquierda."},
+      {name:"Elevación de talones en máquina (gemelos)", sets:3, reps:"15-20", rest:45, note:"Sube hasta la punta del pie apretando la pantorrilla arriba, baja controlado. Segunda dosis semanal para gemelos."},
+      {name:"Press de hombro unilateral en máquina", sets:4, reps:"8-10 por brazo", rest:90, note:"Un brazo a la vez, core apretado. Empieza por el lado izquierdo con el mismo peso que el derecho."},
+      {name:"Remo unilateral en máquina (agarre neutro)", sets:4, reps:"8-10 por brazo", rest:90, note:"Agarre neutro (palmas enfrentadas). Jala con la espalda. Empieza por el lado izquierdo."},
+      {name:"Peso muerto convencional (peso ligero)", sets:3, reps:"8-10", rest:110, note:"Foco en técnica: espalda neutra, barra pegada al cuerpo, empuja el piso con las piernas."},
+      {name:"Empuje de cadera (hip thrust) en máquina o barra", sets:3, reps:"10-12", rest:75, note:"Glúteo aislado. Espalda apoyada en banco, empuja la cadera arriba apretando el glúteo al final, no arquees la lumbar."},
+      {name:"Aperturas posteriores en máquina (pec deck inverso) o face pull", sets:3, reps:"12-15", rest:50, note:"Hombro posterior. Codos altos, aprieta la espalda alta al final del recorrido."},
+      {name:"Máquina de abdominales (crunch) o abdominales en el piso", sets:3, reps:"15", rest:45, note:"Movimiento controlado, evita tirar del cuello, exhala en el esfuerzo."}
+    ],
+    cardio:{label:"Opcional este día", mins:22}
+  }
+};
+
+let currentDay = 'A';
+let progress = { A: null, B: null, C: null };
+function freshProgress(day){
+  return DATA[day].exercises.map(ex => new Array(ex.sets).fill(false));
+}
+['A','B','C'].forEach(d => progress[d] = freshProgress(d));
+
+// ---------- Session clock ----------
+let sessionSeconds = 0, sessionInterval = null, sessionRunning = false;
+const sessionClockEl = document.getElementById('sessionClock');
+const sessionBtn = document.getElementById('sessionBtn');
+function fmt(s){
+  const m = Math.floor(s/60).toString().padStart(2,'0');
+  const sec = Math.floor(s%60).toString().padStart(2,'0');
+  return m+":"+sec;
+}
+sessionBtn.addEventListener('click', () => {
+  sessionRunning = !sessionRunning;
+  if(sessionRunning){
+    sessionBtn.textContent = "Entrenamiento en curso";
+    sessionBtn.classList.remove('start'); sessionBtn.classList.add('running');
+    sessionInterval = setInterval(() => {
+      sessionSeconds++;
+      sessionClockEl.textContent = fmt(sessionSeconds);
+    }, 1000);
+  } else {
+    sessionBtn.textContent = "Reanudar entrenamiento";
+    clearInterval(sessionInterval);
+  }
+});
+
+// ---------- Day tabs ----------
+const dayTabsEl = document.getElementById('dayTabs');
+function renderTabs(){
+  dayTabsEl.innerHTML = '';
+  ['A','B','C'].forEach(d => {
+    const done = progress[d].flat().filter(Boolean).length;
+    const total = progress[d].flat().length;
+    const tab = document.createElement('div');
+    tab.className = 'day-tab' + (d===currentDay ? ' active' : '');
+    tab.innerHTML = `Día ${d}<div class="day-progress">${done}/${total}</div>`;
+    tab.addEventListener('click', () => { currentDay = d; renderAll(); });
+    dayTabsEl.appendChild(tab);
+  });
+}
+
+// ---------- Exercises ----------
+const exerciseListEl = document.getElementById('exerciseList');
+function renderExercises(){
+  exerciseListEl.innerHTML = '';
+  const exs = DATA[currentDay].exercises;
+  exs.forEach((ex, i) => {
+    const setsDone = progress[currentDay][i];
+    const allDone = setsDone.every(Boolean);
+    const card = document.createElement('div');
+    card.className = 'exercise-card' + (allDone ? ' complete' : '');
+    card.innerHTML = `
+      <div class="ex-head">
+        <div>
+          <div class="ex-num">EJERCICIO ${String(i+1).padStart(2,'0')}</div>
+          <div class="ex-name">${ex.name}</div>
+          <div class="ex-meta"><span>${ex.sets} series</span><span>${ex.reps} reps</span><span>${ex.rest}s desc.</span></div>
+        </div>
+      </div>
+      <div class="sets-row">
+        ${setsDone.map((done, si) => `<div class="set-dot ${done?'done':''}" data-i="${i}" data-si="${si}">${done ? '✓' : si+1}</div>`).join('')}
+      </div>
+      <div class="note-toggle" data-i="${i}">Ver técnica</div>
+      <div class="note-body" id="note-${i}">${ex.note}</div>
+    `;
+    exerciseListEl.appendChild(card);
+  });
+
+  exerciseListEl.querySelectorAll('.set-dot').forEach(dot => {
+    dot.addEventListener('click', () => {
+      const i = +dot.dataset.i, si = +dot.dataset.si;
+      const wasDone = progress[currentDay][i][si];
+      progress[currentDay][i][si] = !wasDone;
+      if(!wasDone){
+        startRest(DATA[currentDay].exercises[i].name, DATA[currentDay].exercises[i].rest);
+      }
+      renderAll();
+    });
+  });
+  exerciseListEl.querySelectorAll('.note-toggle').forEach(t => {
+    t.addEventListener('click', () => {
+      const body = document.getElementById('note-'+t.dataset.i);
+      body.classList.toggle('open');
+      t.textContent = body.classList.contains('open') ? 'Ocultar técnica' : 'Ver técnica';
+    });
+  });
+}
+
+// ---------- Cardio ----------
+const cardioCardEl = document.getElementById('cardioCard');
+let cardioState = {}; // per day: {targetSec, remaining, running, interval}
+['A','B','C'].forEach(d => {
+  cardioState[d] = { targetSec: DATA[d].cardio.mins*60, remaining: DATA[d].cardio.mins*60, running:false, interval:null };
+});
+
+function renderCardio(){
+  const st = cardioState[currentDay];
+  cardioCardEl.innerHTML = `
+    <div class="cardio-head">
+      <div>
+        <div class="cardio-title">Caminadora con inclinación</div>
+        <div class="cardio-sub">${DATA[currentDay].cardio.label} · 8-15% inclinación, paso moderado</div>
+      </div>
+    </div>
+    <div class="cardio-controls">
+      <div class="round-btn" id="cardioMinus5">−</div>
+      <div class="cardio-time mono" id="cardioTime">${fmt(st.remaining)}</div>
+      <div class="round-btn" id="cardioPlus5">+</div>
+    </div>
+    <div class="cardio-actions">
+      <button class="pill-btn" id="cardioReset">Reiniciar</button>
+      <button class="pill-btn primary" id="cardioToggle">${st.running ? 'Pausar' : 'Iniciar'}</button>
+    </div>
+  `;
+  document.getElementById('cardioMinus5').addEventListener('click', () => {
+    if(st.running) return;
+    st.targetSec = Math.max(300, st.targetSec - 300);
+    st.remaining = st.targetSec;
+    renderCardio();
+  });
+  document.getElementById('cardioPlus5').addEventListener('click', () => {
+    if(st.running) return;
+    st.targetSec += 300;
+    st.remaining = st.targetSec;
+    renderCardio();
+  });
+  document.getElementById('cardioReset').addEventListener('click', () => {
+    clearInterval(st.interval);
+    st.running = false;
+    st.remaining = st.targetSec;
+    renderCardio();
+  });
+  document.getElementById('cardioToggle').addEventListener('click', () => {
+    st.running = !st.running;
+    if(st.running){
+      st.interval = setInterval(() => {
+        st.remaining--;
+        if(st.remaining <= 0){
+          st.remaining = 0;
+          st.running = false;
+          clearInterval(st.interval);
+          beep();
+        }
+        document.getElementById('cardioTime').textContent = fmt(st.remaining);
+        if(!st.running) renderCardio();
+      }, 1000);
+    } else {
+      clearInterval(st.interval);
+    }
+    renderCardio();
+  });
+}
+
+// ---------- Rest timer ----------
+const restBar = document.getElementById('restBar');
+const restExName = document.getElementById('restExName');
+const restCount = document.getElementById('restCount');
+const restFill = document.getElementById('restFill');
+let restState = { total:0, remaining:0, interval:null, running:false };
+
+function startRest(name, seconds){
+  clearInterval(restState.interval);
+  restState.total = seconds;
+  restState.remaining = seconds;
+  restState.running = true;
+  restExName.textContent = name;
+  restBar.classList.add('active');
+  updateRestUI();
+  document.getElementById('restPause').textContent = 'Pausar';
+  restState.interval = setInterval(tickRest, 1000);
+}
+function tickRest(){
+  if(!restState.running) return;
+  restState.remaining--;
+  if(restState.remaining <= 0){
+    restState.remaining = 0;
+    clearInterval(restState.interval);
+    restState.running = false;
+    beep();
+  }
+  updateRestUI();
+}
+function updateRestUI(){
+  restCount.textContent = fmt(restState.remaining);
+  const pct = restState.total > 0 ? (restState.remaining/restState.total)*100 : 0;
+  restFill.style.width = pct + '%';
+}
+document.getElementById('restPause').addEventListener('click', () => {
+  restState.running = !restState.running;
+  document.getElementById('restPause').textContent = restState.running ? 'Pausar' : 'Reanudar';
+});
+document.getElementById('restMinus').addEventListener('click', () => {
+  restState.remaining = Math.max(0, restState.remaining - 15);
+  updateRestUI();
+});
+document.getElementById('restPlus').addEventListener('click', () => {
+  restState.remaining += 15;
+  restState.total = Math.max(restState.total, restState.remaining);
+  updateRestUI();
+});
+document.getElementById('restSkip').addEventListener('click', () => {
+  clearInterval(restState.interval);
+  restState.running = false;
+  restBar.classList.remove('active');
+});
+
+function beep(){
+  try{
+    const ctx = new (window.AudioContext || window.webkitAudioContext)();
+    const o = ctx.createOscillator();
+    const g = ctx.createGain();
+    o.connect(g); g.connect(ctx.destination);
+    o.frequency.value = 880;
+    g.gain.setValueAtTime(0.15, ctx.currentTime);
+    o.start();
+    o.stop(ctx.currentTime + 0.35);
+  }catch(e){}
+  if(navigator.vibrate) navigator.vibrate([200,80,200]);
+}
+
+// ---------- Reset day ----------
+document.getElementById('resetDay').addEventListener('click', () => {
+  progress[currentDay] = freshProgress(currentDay);
+  renderAll();
+});
+
+function renderAll(){
+  renderTabs();
+  renderExercises();
+  renderCardio();
+}
+renderAll();
+</script>
+</body>
+</html>
