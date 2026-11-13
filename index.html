@@ -319,7 +319,7 @@
   <div class="topbar-row">
     <div>
       <div class="title">Rutina Torso / Pierna</div>
-      <div class="subtitle">3 días · Torso 2x/sem · Pierna 1x/sem</div>
+      <div class="subtitle">Lun·Mié·Vie fuerza · Mar·Jue cardio+abdomen</div>
     </div>
     <div class="session-clock">
       <div class="label">Sesión</div>
@@ -378,10 +378,9 @@ const DATA = {
     exercises: [
       {name:"Jalón al pecho unilateral en polea", sets:4, reps:"8-10 por brazo", rest:90, note:"Anchura de espalda. Un brazo a la vez, jala hacia abajo y atrás. Empieza por el lado izquierdo."},
       {name:"Remo en polea sentado (agarre cerrado)", sets:3, reps:"10-12", rest:75, note:"Espalda recta, jala hacia el abdomen, aprieta escápulas al final del recorrido."},
-      {name:"Cruce de poleas de abajo hacia arriba", sets:3, reps:"12-15", rest:60, note:"Pecho bajo. Mantiene el pecho con frecuencia 2x/semana. Poleas bajas, cruza las manos al frente y arriba del pecho."},
+      {name:"Pec deck / aperturas en máquina", sets:4, reps:"10-12", rest:75, note:"Pecho medio, movimiento de aislamiento (apertura) en vez de press — estímulo distinto al del lunes aunque sea el mismo músculo. Junta los brazos al frente, aprieta 1 seg, controla la vuelta. Segunda dosis real de pecho para que la frecuencia 2x/semana valga la pena."},
       {name:"Aperturas posteriores en máquina (pec deck inverso) o face pull", sets:3, reps:"12-15", rest:50, note:"Hombro posterior. Codos altos, aprieta la espalda alta al final del recorrido."},
-      {name:"Curl de bíceps predicador (banco Scott)", sets:3, reps:"12-15", rest:50, note:"Agarre supinado (palmas arriba). El banco fija el codo y quita el impulso del hombro, aislando más el bíceps."},
-      {name:"Curl martillo en polea o mancuerna", sets:2, reps:"12-15", rest:45, note:"Agarre neutro (palmas enfrentadas). Trabaja braquial y antebrazo, complementa al predicador."}
+      {name:"Curl de bíceps predicador (banco Scott)", sets:3, reps:"12-15", rest:50, note:"Agarre supinado (palmas arriba). El banco fija el codo y quita el impulso del hombro, aislando más el bíceps. Suficiente trabajo directo de bíceps — ya recibe bastante indirecto del jalón y el remo."}
     ],
     cardio:{label:"Recomendado este día", mins:22}
   },
@@ -389,15 +388,25 @@ const DATA = {
     label: "Pierna",
     sub: "Cuádriceps · Isquios · Glúteo · Gemelo",
     exercises: [
-      {name:"Prensa de piernas (horizontal o inclinada)", sets:4, reps:"8-10", rest:110, note:"Pies a la anchura de hombros en la plataforma, baja hasta 90° de rodilla, no bloquees las rodillas con fuerza arriba."},
-      {name:"Prensa unilateral en máquina (una pierna)", sets:3, reps:"10-12 por pierna", rest:75, note:"Una pierna a la vez. Empuja con el talón, no bloquees la rodilla con fuerza arriba. Empieza por la izquierda."},
-      {name:"Extensión de cuádriceps en máquina", sets:3, reps:"12-15", rest:60, note:"Movimiento controlado, aprieta el cuádriceps arriba 1 seg, baja despacio sin soltar el peso."},
+      {name:"Prensa de piernas (horizontal o inclinada)", sets:4, reps:"8-10", rest:110, note:"Compuesto principal de la pierna. Pies a la anchura de hombros en la plataforma, baja hasta 90° de rodilla, no bloquees las rodillas con fuerza arriba."},
+      {name:"Extensión de cuádriceps en máquina, una pierna a la vez", sets:3, reps:"12-15 por pierna", rest:60, note:"Unilateral en vez de una segunda prensa — así sigues dándole atención extra a la pierna izquierda sin repetir el mismo movimiento. Aprieta el cuádriceps arriba 1 seg, baja despacio. Empieza por la izquierda."},
       {name:"Curl femoral en máquina (sentado o acostado)", sets:4, reps:"10-12", rest:90, note:"Isquiotibiales y glúteos, sin exigir técnica de bisagra de cadera. Aprieta abajo, controla la vuelta."},
-      {name:"Empuje de cadera (hip thrust) en máquina o barra", sets:3, reps:"10-12", rest:75, note:"Glúteo aislado. Espalda apoyada en banco, empuja la cadera arriba apretando el glúteo al final, no arquees la lumbar. Puedes alternar algunas semanas con peso muerto convencional ligero si quieres mantener esa técnica."},
-      {name:"Elevación de talones en máquina (gemelos)", sets:3, reps:"15-20", rest:45, note:"Sube hasta la punta del pie apretando la pantorrilla arriba, baja controlado hasta sentir el estiramiento."},
-      {name:"Máquina de abdominales (crunch) o plancha", sets:3, reps:"15 o 30-45 seg", rest:45, note:"Movimiento controlado, evita tirar del cuello, exhala en el esfuerzo."}
+      {name:"Empuje de cadera (hip thrust) en máquina o barra", sets:3, reps:"10-12", rest:75, note:"Glúteo aislado. Espalda apoyada en banco, empuja la cadera arriba apretando el glúteo al final, no arquees la lumbar."},
+      {name:"Peso muerto convencional", sets:3, reps:"8-10", rest:110, note:"Isquiotibiales, glúteo y espalda baja. Espalda neutra, barra pegada al cuerpo, empuja el piso con las piernas al subir."},
+      {name:"Elevación de talones en máquina (gemelos)", sets:3, reps:"15-20", rest:45, note:"Sube hasta la punta del pie apretando la pantorrilla arriba, baja controlado hasta sentir el estiramiento."}
     ],
     cardio:{label:"Opcional este día", mins:22}
+  },
+  D: {
+    label: "Cardio",
+    sub: "Martes y jueves · Quema de grasa + core completo",
+    exercises: [
+      {name:"Crunch en máquina o en el piso", sets:3, reps:"15-20", rest:40, note:"Abdomen alto. Sube solo los hombros del piso (no te sientes completo), exhala al subir, controla la bajada."},
+      {name:"Elevación de piernas (en paralelas, colgado o acostado)", sets:3, reps:"12-15", rest:45, note:"Abdomen bajo. Sube las piernas sin balancear el cuerpo, controla la bajada sin dejarlas caer."},
+      {name:"Crunch lateral o oblicuo en máquina", sets:3, reps:"15 por lado", rest:40, note:"Oblicuos. Lleva el codo hacia la cadera del mismo lado, movimiento corto y controlado, no jales del cuello."},
+      {name:"Plancha", sets:3, reps:"30-45 seg", rest:45, note:"Core completo (estabilización). Cuerpo en línea recta, glúteos y abdomen activos, no dejes caer la cadera."}
+    ],
+    cardio:{label:"Cardio para quema de grasa — hazlo antes o después del abdomen", mins:35}
   }
 };
 
@@ -406,7 +415,7 @@ let progress = { A: null, B: null, C: null };
 function freshProgress(day){
   return DATA[day].exercises.map(ex => new Array(ex.sets).fill(false));
 }
-['A','B','C'].forEach(d => progress[d] = freshProgress(d));
+['A','B','C','D'].forEach(d => progress[d] = freshProgress(d));
 
 // ---------- Session clock ----------
 let sessionSeconds = 0, sessionInterval = null, sessionRunning = false;
@@ -436,7 +445,7 @@ sessionBtn.addEventListener('click', () => {
 const dayTabsEl = document.getElementById('dayTabs');
 function renderTabs(){
   dayTabsEl.innerHTML = '';
-  ['A','B','C'].forEach(d => {
+  ['A','B','C','D'].forEach(d => {
     const done = progress[d].flat().filter(Boolean).length;
     const total = progress[d].flat().length;
     const tab = document.createElement('div');
@@ -497,7 +506,7 @@ function renderExercises(){
 // ---------- Cardio ----------
 const cardioCardEl = document.getElementById('cardioCard');
 let cardioState = {}; // per day: {targetSec, remaining, running, interval}
-['A','B','C'].forEach(d => {
+['A','B','C','D'].forEach(d => {
   cardioState[d] = { targetSec: DATA[d].cardio.mins*60, remaining: DATA[d].cardio.mins*60, running:false, interval:null };
 });
 
