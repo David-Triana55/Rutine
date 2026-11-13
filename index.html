@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
-<title>Rutina · Full Body</title>
+<title>Rutina · Torso Pierna</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Inter:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
 <style>
@@ -318,8 +318,8 @@
 <div class="topbar">
   <div class="topbar-row">
     <div>
-      <div class="title">Rutina Full Body</div>
-      <div class="subtitle">3 días · Recomposición corporal</div>
+      <div class="title">Rutina Torso / Pierna</div>
+      <div class="subtitle">3 días · Torso 2x/sem · Pierna 1x/sem</div>
     </div>
     <div class="session-clock">
       <div class="label">Sesión</div>
@@ -360,40 +360,42 @@
 <script>
 const DATA = {
   A: {
+    label: "Torso A",
+    sub: "Pecho · Hombro · Espalda · Tríceps",
     exercises: [
-      {name:"Prensa de piernas (horizontal o inclinada)", sets:4, reps:"8-10", rest:110, note:"Pies a la anchura de hombros en la plataforma, baja hasta 90° de rodilla, no bloquees las rodillas con fuerza arriba."},
-      {name:"Extensión de cuádriceps en máquina", sets:3, reps:"12-15", rest:60, note:"Movimiento controlado, aprieta el cuádriceps arriba 1 seg, baja despacio sin soltar el peso."},
-      {name:"Elevación de talones en máquina (gemelos)", sets:3, reps:"15-20", rest:45, note:"Sube hasta la punta del pie apretando la pantorrilla arriba, baja controlado hasta sentir el estiramiento."},
       {name:"Press de pecho unilateral en máquina", sets:4, reps:"8-10 por brazo", rest:90, note:"Pecho medio. Un brazo a la vez. Empieza siempre por el lado izquierdo con el mismo peso que el derecho."},
-      {name:"Remo unilateral en máquina (agarre neutro)", sets:4, reps:"8-10 por brazo", rest:90, note:"Agarre neutro (palmas enfrentadas, como girar una perilla). Jala con la espalda. Empieza por el lado izquierdo."},
-      {name:"Press de hombro unilateral en máquina", sets:3, reps:"10-12 por brazo", rest:75, note:"Un brazo a la vez, core firme. Empieza por el lado izquierdo con el mismo peso que el derecho."},
-      {name:"Curl de bíceps predicador (banco Scott)", sets:2, reps:"12-15", rest:50, note:"Agarre supinado (palmas arriba). El banco fija el codo y quita el impulso del hombro, aislando más el bíceps."},
-      {name:"Plancha", sets:3, reps:"30-45 seg", rest:45, note:"Cuerpo en línea recta, glúteos y abdomen activos, no dejes caer la cadera."}
+      {name:"Press inclinado unilateral en máquina", sets:3, reps:"8-10 por brazo", rest:90, note:"Pecho alto. Un brazo a la vez. Empieza por el lado izquierdo con el mismo peso que el derecho."},
+      {name:"Press de hombro unilateral en máquina", sets:4, reps:"8-10 por brazo", rest:90, note:"Un brazo a la vez, core firme. Empieza por el lado izquierdo con el mismo peso que el derecho."},
+      {name:"Remo unilateral en máquina (agarre neutro)", sets:3, reps:"8-10 por brazo", rest:90, note:"Agarre neutro (palmas enfrentadas, como girar una perilla). Mantiene la espalda con frecuencia 2x/semana. Empieza por el lado izquierdo."},
+      {name:"Elevación lateral en polea o máquina", sets:3, reps:"12-15", rest:50, note:"Sube hasta la altura del hombro sin impulso, controla la bajada."},
+      {name:"Extensión de tríceps en polea", sets:3, reps:"12-15", rest:50, note:"Codos fijos pegados al torso, extiende completo sin trabar la articulación con fuerza."}
     ],
     cardio:{label:"Opcional este día", mins:22}
   },
-  B: {
+  C: {
+    label: "Torso B",
+    sub: "Espalda · Bíceps · Pecho · Hombro posterior",
     exercises: [
-      {name:"Curl femoral en máquina (sentado o acostado)", sets:4, reps:"10-12", rest:90, note:"Isquiotibiales y glúteos, sin exigir técnica de bisagra de cadera. Aprieta abajo, controla la vuelta."},
-      {name:"Press inclinado unilateral en máquina", sets:4, reps:"8-10 por brazo", rest:90, note:"Pecho alto. Un brazo a la vez. Empieza por el lado izquierdo con el mismo peso que el derecho."},
-      {name:"Cruce de poleas de abajo hacia arriba (o press declinado)", sets:3, reps:"12-15", rest:60, note:"Pecho bajo. Poleas bajas, cruza las manos al frente y arriba del pecho, aprieta al final del recorrido."},
       {name:"Jalón al pecho unilateral en polea", sets:4, reps:"8-10 por brazo", rest:90, note:"Anchura de espalda. Un brazo a la vez, jala hacia abajo y atrás. Empieza por el lado izquierdo."},
-      {name:"Prensa unilateral en máquina (una pierna)", sets:3, reps:"10-12 por pierna", rest:75, note:"Una pierna a la vez. Empuja con el talón, no bloquees la rodilla con fuerza arriba. Empieza por la izquierda."},
-      {name:"Elevación lateral en polea o máquina", sets:3, reps:"12-15", rest:50, note:"Sube hasta la altura del hombro sin impulso, controla la bajada."},
-      {name:"Extensión de tríceps en polea", sets:2, reps:"12-15", rest:50, note:"Codos fijos pegados al torso, extiende completo sin trabar la articulación con fuerza."}
+      {name:"Remo en polea sentado (agarre cerrado)", sets:3, reps:"10-12", rest:75, note:"Espalda recta, jala hacia el abdomen, aprieta escápulas al final del recorrido."},
+      {name:"Cruce de poleas de abajo hacia arriba", sets:3, reps:"12-15", rest:60, note:"Pecho bajo. Mantiene el pecho con frecuencia 2x/semana. Poleas bajas, cruza las manos al frente y arriba del pecho."},
+      {name:"Aperturas posteriores en máquina (pec deck inverso) o face pull", sets:3, reps:"12-15", rest:50, note:"Hombro posterior. Codos altos, aprieta la espalda alta al final del recorrido."},
+      {name:"Curl de bíceps predicador (banco Scott)", sets:3, reps:"12-15", rest:50, note:"Agarre supinado (palmas arriba). El banco fija el codo y quita el impulso del hombro, aislando más el bíceps."},
+      {name:"Curl martillo en polea o mancuerna", sets:2, reps:"12-15", rest:45, note:"Agarre neutro (palmas enfrentadas). Trabaja braquial y antebrazo, complementa al predicador."}
     ],
     cardio:{label:"Recomendado este día", mins:22}
   },
-  C: {
+  B: {
+    label: "Pierna",
+    sub: "Cuádriceps · Isquios · Glúteo · Gemelo",
     exercises: [
+      {name:"Prensa de piernas (horizontal o inclinada)", sets:4, reps:"8-10", rest:110, note:"Pies a la anchura de hombros en la plataforma, baja hasta 90° de rodilla, no bloquees las rodillas con fuerza arriba."},
       {name:"Prensa unilateral en máquina (una pierna)", sets:3, reps:"10-12 por pierna", rest:75, note:"Una pierna a la vez. Empuja con el talón, no bloquees la rodilla con fuerza arriba. Empieza por la izquierda."},
-      {name:"Elevación de talones en máquina (gemelos)", sets:3, reps:"15-20", rest:45, note:"Sube hasta la punta del pie apretando la pantorrilla arriba, baja controlado. Segunda dosis semanal para gemelos."},
-      {name:"Press de hombro unilateral en máquina", sets:4, reps:"8-10 por brazo", rest:90, note:"Un brazo a la vez, core apretado. Empieza por el lado izquierdo con el mismo peso que el derecho."},
-      {name:"Remo unilateral en máquina (agarre neutro)", sets:4, reps:"8-10 por brazo", rest:90, note:"Agarre neutro (palmas enfrentadas). Jala con la espalda. Empieza por el lado izquierdo."},
-      {name:"Peso muerto convencional (peso ligero)", sets:3, reps:"8-10", rest:110, note:"Foco en técnica: espalda neutra, barra pegada al cuerpo, empuja el piso con las piernas."},
-      {name:"Empuje de cadera (hip thrust) en máquina o barra", sets:3, reps:"10-12", rest:75, note:"Glúteo aislado. Espalda apoyada en banco, empuja la cadera arriba apretando el glúteo al final, no arquees la lumbar."},
-      {name:"Aperturas posteriores en máquina (pec deck inverso) o face pull", sets:3, reps:"12-15", rest:50, note:"Hombro posterior. Codos altos, aprieta la espalda alta al final del recorrido."},
-      {name:"Máquina de abdominales (crunch) o abdominales en el piso", sets:3, reps:"15", rest:45, note:"Movimiento controlado, evita tirar del cuello, exhala en el esfuerzo."}
+      {name:"Extensión de cuádriceps en máquina", sets:3, reps:"12-15", rest:60, note:"Movimiento controlado, aprieta el cuádriceps arriba 1 seg, baja despacio sin soltar el peso."},
+      {name:"Curl femoral en máquina (sentado o acostado)", sets:4, reps:"10-12", rest:90, note:"Isquiotibiales y glúteos, sin exigir técnica de bisagra de cadera. Aprieta abajo, controla la vuelta."},
+      {name:"Empuje de cadera (hip thrust) en máquina o barra", sets:3, reps:"10-12", rest:75, note:"Glúteo aislado. Espalda apoyada en banco, empuja la cadera arriba apretando el glúteo al final, no arquees la lumbar. Puedes alternar algunas semanas con peso muerto convencional ligero si quieres mantener esa técnica."},
+      {name:"Elevación de talones en máquina (gemelos)", sets:3, reps:"15-20", rest:45, note:"Sube hasta la punta del pie apretando la pantorrilla arriba, baja controlado hasta sentir el estiramiento."},
+      {name:"Máquina de abdominales (crunch) o plancha", sets:3, reps:"15 o 30-45 seg", rest:45, note:"Movimiento controlado, evita tirar del cuello, exhala en el esfuerzo."}
     ],
     cardio:{label:"Opcional este día", mins:22}
   }
@@ -439,7 +441,7 @@ function renderTabs(){
     const total = progress[d].flat().length;
     const tab = document.createElement('div');
     tab.className = 'day-tab' + (d===currentDay ? ' active' : '');
-    tab.innerHTML = `Día ${d}<div class="day-progress">${done}/${total}</div>`;
+    tab.innerHTML = `${DATA[d].label}<div class="day-progress">${done}/${total}</div>`;
     tab.addEventListener('click', () => { currentDay = d; renderAll(); });
     dayTabsEl.appendChild(tab);
   });
@@ -448,7 +450,7 @@ function renderTabs(){
 // ---------- Exercises ----------
 const exerciseListEl = document.getElementById('exerciseList');
 function renderExercises(){
-  exerciseListEl.innerHTML = '';
+  exerciseListEl.innerHTML = `<div class="section-label" style="margin-top:0;">${DATA[currentDay].label} · ${DATA[currentDay].sub}</div>`;
   const exs = DATA[currentDay].exercises;
   exs.forEach((ex, i) => {
     const setsDone = progress[currentDay][i];
